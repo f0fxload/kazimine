@@ -275,9 +275,10 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:44px 0 34px;font-
           Качаешь один установщик и сразу заходишь в мир. Четыре биома — равнины, дубовые и берёзовые рощи, снежная тайга и пустыня. Под землёй — пещеры с углём, железом, золотом, алмазами и изумрудами.
         </p>
         <ul class="facts">
-          <li>4 БИОМА</li>
+          <li>ВЫСОТА 256 БЛОКОВ</li>
+          <li>4 БИОМА И ТЁМНЫЕ ПЕЩЕРЫ</li>
           <li>СЕТЕВЫЕ КОМНАТЫ</li>
-          <li>ВЫЖИВАНИЕ И КРЕАТИВ</li>
+          <li>СУНДУКИ И ВЫЖИВАНИЕ</li>
         </ul>
       </div>
     </div>
@@ -396,7 +397,7 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:44px 0 34px;font-
         <div>
           <img class="ico pixel-img" src="./assets/icons/rag.png" alt="" draggable="false">
           <b>Тряпка</b>
-          <p>Крафтится из шерсти, травы или листвы. Смывает следы крови с блоков и снега.</p>
+          <p>Крафтится из шерсти, травы или листвы. Зажми ЛКМ и води по блокам, чтобы оттереть кровь.</p>
         </div>
         <div>
           <img class="ico pixel-img" src="./assets/icons/diamond_sword.png" alt="" draggable="false">
@@ -404,9 +405,9 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:44px 0 34px;font-
           <p>Выпущенные стрелы летят по дуге, втыкаются в стены и дрожат от удара.</p>
         </div>
         <div>
-          <img class="ico pixel-img" src="./assets/icons/furnace_front.png" alt="" draggable="false">
-          <b>Печь и готовка</b>
-          <p>Железная и золотая руда переплавляется в слитки, а сырое мясо жарится на угле или досках.</p>
+          <img class="ico pixel-img" src="./assets/icons/chest.png" alt="" draggable="false">
+          <b>Сундуки и печь</b>
+          <p>Сундуки на 27 слотов для хранения добычи, выплавка руд в слитки и жарка мяса на углях.</p>
         </div>
         <div>
           <img class="ico pixel-img" src="./assets/icons/red_bed.png" alt="" draggable="false">
@@ -420,8 +421,8 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:44px 0 34px;font-
         </div>
         <div>
           <img class="ico pixel-img" src="./assets/icons/torch.png" alt="" draggable="false">
-          <b>Свет и звук</b>
-          <p>Тёплый свет факелов и печей, шаги по разным блокам, треск огня и эхо под землёй.</p>
+          <b>Пещеры, свет и звук</b>
+          <p>Глубокая темнота пещер и ночи, живой свет факелов, шаги по разным блокам и эхо под землёй.</p>
         </div>
       </div>
 
@@ -435,6 +436,7 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:44px 0 34px;font-
             <button class="wb-pill" data-r="rag2"><img src="./assets/icons/short_grass.png" class="pixel-img" alt="" draggable="false">Тряпка (трава)</button>
             <button class="wb-pill" data-r="pick"><img src="./assets/icons/diamond_pickaxe.png" class="pixel-img" alt="" draggable="false">Кирка</button>
             <button class="wb-pill" data-r="sword"><img src="./assets/icons/diamond_sword.png" class="pixel-img" alt="" draggable="false">Меч</button>
+            <button class="wb-pill" data-r="chest"><img src="./assets/icons/chest.png" class="pixel-img" alt="" draggable="false">Сундук</button>
             <button class="wb-pill" data-r="bed"><img src="./assets/icons/red_bed.png" class="pixel-img" alt="" draggable="false">Кровать</button>
           </div>
         </div>
@@ -558,6 +560,7 @@ if (!touch) qsa('.card').forEach(function(c){
     rag2: { g: [0,0,0, 'short_grass.png','short_grass.png',0, 0,0,0], o: 'rag.png', c: 1, d: '2 пучка травы или листвы → 1 тряпка.' },
     pick: { g: ['diamond.png','diamond.png','diamond.png', 0,'stick.png',0, 0,'stick.png',0], o: 'diamond_pickaxe.png', c: 1, d: '3 алмаза и 2 палки. Добывает руды и обсидиан.' },
     sword: { g: [0,'diamond.png',0, 0,'diamond.png',0, 0,'stick.png',0], o: 'diamond_sword.png', c: 1, d: '2 алмаза и 1 палка. Высокий урон в ближнем бою.' },
+    chest: { g: ['oak_planks.png','oak_planks.png','oak_planks.png', 'oak_planks.png',0,'oak_planks.png', 'oak_planks.png','oak_planks.png','oak_planks.png'], o: 'chest.png', c: 1, d: '8 любых досок по кругу → сундук на 27 слотов.' },
     bed: { g: [0,0,0, 'red_wool.png','red_wool.png','red_wool.png', 'oak_planks.png','oak_planks.png','oak_planks.png'], o: 'red_bed.png', c: 1, d: '3 шерсти и 3 блока досок. Пропуск ночи и точка спавна.' }
   };
   var gEl = qs('#wbGrid'), oEl = qs('#wbOut'), dEl = qs('#wbDesc');
