@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KaziMine 0.1 beta | Воксельная песочница от f0fxload</title>
-<meta name="description" content="Воксельная 3D-песочница от f0fxload: выживание, онлайн-комнаты с друзьями, 3D-стрелы и встроенный шейдер RTX [F7]. Скачай установщик для Windows бесплатно.">
+<title>KaziMine 0.1 beta — by f0fxload</title>
+<meta name="description" content="KaziMine 0.1 beta — воксельная песочница от f0fxload. Выживание, кооператив, шейдеры по F7.">
 <meta name="theme-color" content="#08080a">
 <meta property="og:type" content="website">
-<meta property="og:title" content="KaziMine 0.1 beta — by f0fxload">
-<meta property="og:description" content="Живой процедурный мир, выживание, онлайн-комнаты и шейдер RTX [F7].">
+<meta property="og:title" content="KaziMine 0.1 beta">
+<meta property="og:description" content="Воксельная песочница от f0fxload. Выживание, кооператив и шейдеры по F7.">
 <meta property="og:image" content="./assets/og_cover.jpg">
 <link rel="icon" type="image/png" href="./assets/favicon.png">
 <script>(function(){try{history.scrollRestoration='manual'}catch(e){}document.documentElement.classList.add('js','pre')})()</script>
@@ -23,31 +23,37 @@
   --pix:"MCPixel",ui-monospace,Consolas,monospace;
   --gut:clamp(18px,4.2vw,60px);
 }
-*{box-sizing:border-box}
+*,*::before,*::after{
+  box-sizing:border-box;
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+}
 html{scroll-behavior:smooth;background:var(--bg);-webkit-text-size-adjust:100%;scrollbar-width:none;-ms-overflow-style:none}
 html::-webkit-scrollbar,body::-webkit-scrollbar{display:none;width:0;height:0}
 body{margin:0;background:var(--bg);color:var(--text);font:400 clamp(16px,1.06vw,18px)/1.6 var(--body);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-img{max-width:100%;display:block}
+img,a,svg{max-width:100%;display:block;-webkit-user-drag:none;user-drag:none}
+img{pointer-events:none}
 a{color:inherit}
 h1,h2,h3,p{margin:0}
 h2{font:800 clamp(40px,6vw,92px)/.98 var(--head);letter-spacing:-.025em}
 h3{font:800 clamp(26px,2.6vw,38px)/1.06 var(--head);letter-spacing:-.015em}
-.over{font:400 14px/1.4 var(--pix);letter-spacing:.09em;color:var(--emerald, #2ee58d);text-transform:uppercase}
+.over{font:400 14px/1.4 var(--pix);letter-spacing:.09em;color:var(--acc);text-transform:uppercase}
 .lead{color:#d5dbe6;font-size:clamp(17px,1.25vw,21px);line-height:1.58;max-width:34em}
 .pixel-img{image-rendering:pixelated;image-rendering:crisp-edges}
-::selection{background:var(--acc);color:#041a0e}
 
-/* FULLSCREEN INTERACTIVE 3D POINT CLOUD */
+/* FULLSCREEN 3D POINT CLOUD */
 #cloud{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
 main,footer{position:relative;z-index:1}
 
-/* OPENING BOOT SEQUENCE (GILLA STYLE) */
+/* OPENING LOADER */
 #intro{position:fixed;inset:0;z-index:40;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:16vh;pointer-events:none;transition:opacity .5s}
 #intro .st{font:400 14px/1.2 var(--pix);letter-spacing:.12em;color:#e9eef5;margin-bottom:14px;min-height:18px;text-align:center}
 #intro .bar{display:flex;gap:3px}
 #intro .bar i{width:8px;height:12px;background:#1e232c}
 #intro .bar i.on{background:var(--acc);box-shadow:0 0 10px var(--glow)}
-#intro .skipit{margin-top:18px;font:400 12px/1 var(--pix);color:var(--faint);letter-spacing:.1em}
 html:not(.js) #intro{display:none}
 .pre main,.pre #nav,.pre footer{opacity:0}
 main,#nav,footer{transition:opacity 1s ease}
@@ -71,10 +77,10 @@ main,#nav,footer{transition:opacity 1s ease}
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:999px;font-weight:800;font-size:16.5px;color:#04190e;text-decoration:none;background:linear-gradient(180deg,#70ffbc,var(--acc) 46%,#15a35c);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 6px 30px var(--glow);transition:transform .18s,box-shadow .18s}
 .btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 12px 42px rgba(46,229,141,.58)}
-.lnk{color:#7af5b8;text-decoration:none;font-weight:600;font-size:16px}
+.lnk{display:inline-block;color:#7af5b8;text-decoration:none;font-weight:600;font-size:16px}
 .lnk:hover{text-decoration:underline}
 
-/* HERO (BOTTOM-ALIGNED OVER THE GIANT 3D POINT CLOUD, JUST LIKE GILLAVR) */
+/* HERO */
 .hero{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:0 var(--gut) clamp(42px,8vh,86px);text-align:center;overflow:hidden}
 .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:54%;background:linear-gradient(180deg,rgba(8,8,10,0),rgba(8,8,10,.82) 52%,rgba(8,8,10,.86) 76%,rgba(8,8,10,0));z-index:0;pointer-events:none}
 .hero>*{position:relative;z-index:1}
@@ -96,14 +102,14 @@ section{position:relative}
 .js .rv.in{opacity:1;transform:none}
 .hl{color:var(--acc)}
 
-/* SECTION 1: WORLD (LEFT TEXT, 3D VOXEL ISLAND DOTS ON RIGHT) */
+/* SECTION 1: WORLD */
 #world{min-height:110vh;display:flex;align-items:center}
 #world .col{max-width:600px}
 #world h2{margin:14px 0 22px}
 #world .facts{list-style:none;margin:28px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px}
 #world .facts li{font:400 13px/1 var(--pix);letter-spacing:.05em;padding:9px 13px;border:1px solid var(--line2);border-radius:7px;color:#dce2ec;background:rgba(10,12,16,.76);backdrop-filter:blur(6px)}
 
-/* SECTION 2: INTERACTIVE RTX FLASHLIGHT / LENS REVEAL (LIKE GILLA #base) */
+/* SECTION 2: RTX LENS */
 #rtx{position:relative;height:106vh;background:#050608;overflow:hidden;touch-action:pan-y;cursor:crosshair;border-top:1px solid #191d24;border-bottom:1px solid #191d24}
 #rtx .layer-classic{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.52) contrast(1.04)}
 #rtx .layer-rtx{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
@@ -117,7 +123,7 @@ section{position:relative}
 #rtx .lead{margin-top:14px;text-shadow:0 2px 16px #000}
 #rtx .hint{position:absolute;right:var(--gut);top:clamp(84px,11vh,116px);font:400 13px/1.3 var(--pix);color:#d7fbe8;letter-spacing:.08em;background:rgba(8,10,14,.72);border:1px solid rgba(46,229,141,.4);padding:8px 14px;border-radius:999px;pointer-events:none}
 
-/* SECTION 3: STICKY 3-STAGE POINT-CLOUD MORPH TRACK (SKELETON -> ZOMBIE -> ISLAND) */
+/* SECTION 3: STICKY 3-STAGE TRACK */
 #mobs{height:340vh}
 #mobs .pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
 #mobs .stack{position:relative;width:min(560px,100%);min-height:min(60vh,480px)}
@@ -128,10 +134,9 @@ section{position:relative}
 #mobs .tk i{height:4px;width:48px;background:#262b35;border-radius:3px;overflow:hidden;position:relative}
 #mobs .tk i b{position:absolute;inset:0;background:var(--acc);transform-origin:0 50%;transform:scaleX(0)}
 
-/* SECTION 4: THREE MODES CARDS WITH CROP MARKS & 3D TILT */
+/* SECTION 4: MODES CARDS */
 #modes{background:linear-gradient(180deg,rgba(8,8,10,0),rgba(8,8,10,.9) 14%,rgba(8,8,10,.9) 86%,rgba(8,8,10,0))}
 .sechead{text-align:center;margin-bottom:clamp(46px,7vh,78px)}
-.sechead p{color:var(--muted);font-size:clamp(17px,1.4vw,22px);margin-top:12px}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(22px,2.4vw,34px)}
 .crop{position:relative}
 .crop::before,.crop::after{content:"";position:absolute;pointer-events:none;z-index:2}
@@ -150,7 +155,7 @@ section{position:relative}
 .card.c .tag{color:var(--cyan)}
 .card.y .tag{color:var(--gold)}
 
-/* SECTION 5: ARCHITECTURAL FEATURE GRID + INTERACTIVE CRAFTING */
+/* SECTION 5: MECHANICS GRID + WORKBENCH */
 #craft{background:linear-gradient(180deg,rgba(8,8,10,.88),var(--bg2) 25%,var(--bg) 85%,rgba(8,8,10,0))}
 .fe{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line);background:rgba(12,14,18,.82);backdrop-filter:blur(8px)}
 .fe>div{padding:26px 26px 28px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transition:background .25s}
@@ -159,7 +164,6 @@ section{position:relative}
 .fe b{display:block;font:800 23px/1.15 var(--head);letter-spacing:-.01em;margin-bottom:7px}
 .fe p{color:var(--muted);font-size:15px;line-height:1.55}
 
-/* COMPACT INTERACTIVE WORKBENCH BAR */
 .wb-strip{margin-top:42px;background:rgba(16,19,25,.9);border:1px solid var(--line2);border-radius:14px;padding:26px;display:grid;grid-template-columns:1fr 1.1fr;gap:26px;align-items:center}
 .wb-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .wb-pill{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;border-radius:8px;background:#0d1015;border:1px solid var(--line2);color:#dce3ee;font:600 13.5px/1 var(--body);cursor:pointer;transition:all .16s}
@@ -175,15 +179,14 @@ section{position:relative}
 .wb-cnt{position:absolute;right:4px;bottom:2px;font:400 13px/1 var(--pix);color:#fff;text-shadow:2px 2px 0 #111}
 .wb-arr{font:400 24px/1 var(--pix);color:#3a3a3a}
 
-/* FINALE CTA (STEVE RE-ASSEMBLES IN POINT CLOUD) */
-#cta{min-height:114vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:0 var(--gut) clamp(68px,12vh,124px)}
+/* FINALE CTA */
+#cta{min-height:112vh;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding:0 var(--gut) clamp(68px,12vh,124px)}
 #cta::after{content:"";position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(180deg,rgba(8,8,10,0),rgba(8,8,10,.9) 58%,var(--bg));z-index:0;pointer-events:none}
 #cta>*{position:relative;z-index:1}
-#cta h2{margin-bottom:14px}
-#cta .lead{margin:0 auto 28px}
+#cta h2{margin:10px 0 26px}
 
-footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:48px 0 38px;font-size:14.5px}
-.fcols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px 60px;margin-bottom:28px}
+footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:44px 0 34px;font-size:14.5px}
+.fcols{display:flex;flex-wrap:wrap;justify-content:space-between;gap:28px 60px;margin-bottom:24px}
 .fcols b{display:block;margin-bottom:10px;font-weight:700;color:#fff}
 .fcols a,.fcols span{display:block;color:var(--muted);text-decoration:none;margin-bottom:7px}
 .fcols a:hover{color:#fff}
@@ -208,110 +211,108 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:48px 0 38px;font-
 }
 </style>
 </head>
-<body>
+<body oncontextmenu="if(event.target.tagName==='IMG')return false;">
 
 <canvas id="cloud" aria-hidden="true"></canvas>
 <div id="flash" aria-hidden="true"></div>
 
 <div id="intro" aria-hidden="true">
-  <div class="st" id="introSt">ПРОВЕРКА ФАЙЛОВ ИГРЫ...</div>
+  <div class="st" id="introSt">ЗАГРУЗКА...</div>
   <div class="bar" id="introBar"></div>
-  <div class="skipit">НАЖМИ В ЛЮБОМ МЕСТЕ, ЧТОБЫ ПРОПУСТИТЬ</div>
 </div>
 
 <nav id="nav" aria-label="Навигация">
-  <a class="home" href="#top" title="Наверх"><img src="./assets/favicon.png" alt="KaziMine" class="pixel-img"></a>
+  <a class="home" href="#top" draggable="false"><img src="./assets/favicon.png" alt="KaziMine" class="pixel-img" draggable="false"></a>
   <span class="sep"></span>
-  <a class="lk" href="#world">Мир</a>
-  <a class="lk" href="#rtx">RTX [F7]</a>
-  <a class="lk" href="#mobs">Существа</a>
-  <a class="lk" href="#modes">Режимы</a>
-  <a class="lk" href="#craft">Крафт</a>
-  <a class="get" data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.1-beta/KaziMine_Setup.exe" download="KaziMine_Setup.exe">Скачать</a>
+  <a class="lk" href="#world" draggable="false">Мир</a>
+  <a class="lk" href="#rtx" draggable="false">Графика</a>
+  <a class="lk" href="#mobs" draggable="false">Ночь</a>
+  <a class="lk" href="#modes" draggable="false">Режимы</a>
+  <a class="lk" href="#craft" draggable="false">Крафт</a>
+  <a class="get" data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.1-beta/KaziMine_Setup.exe" download="KaziMine_Setup.exe" draggable="false">Скачать</a>
 </nav>
 
 <main id="top">
   <!-- HERO -->
   <header class="hero">
     <div class="logo-wrap">
-      <img src="./assets/kazimine_logo.png" alt="KAZIMINE" class="pixel-img">
+      <img src="./assets/kazimine_logo.png" alt="KAZIMINE" class="pixel-img" draggable="false">
     </div>
-    <img src="./assets/logo_by_f0fxload.png" alt="by f0fxload" class="by-badge pixel-img">
-    <p class="over">Воксельная песочница · Онлайн-комнаты · RTX [F7] · 0.1 beta</p>
+    <img src="./assets/logo_by_f0fxload.png" alt="by f0fxload" class="by-badge pixel-img" draggable="false">
+    <p class="over">Воксельная песочница · Кооператив · 0.1 beta</p>
     <div class="cta-row">
-      <a class="btn" data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.1-beta/KaziMine_Setup.exe" download="KaziMine_Setup.exe">
-        <span>⬇ Скачать установщик (37 МБ)</span>
+      <a class="btn" data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.1-beta/KaziMine_Setup.exe" download="KaziMine_Setup.exe" draggable="false">
+        <span>Скачать на Windows</span>
       </a>
-      <a class="lnk" href="https://www.twitch.tv/kazibban" target="_blank" rel="noopener">Twitch автора ›</a>
+      <a class="lnk" href="https://www.twitch.tv/kazibban" target="_blank" rel="noopener" draggable="false">Twitch ›</a>
     </div>
-    <p class="sub-note">Windows 10 / 11 (x64) · Наведи курсор на точки или кликни по фону</p>
-    <a href="#world" aria-label="Листать вниз">
+    <p class="sub-note">Windows 10 / 11 (x64) · 37 МБ</p>
+    <a href="#world" aria-label="Вниз" draggable="false">
       <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
     </a>
   </header>
 
-  <!-- SECTION 1: WORLD (POINT CLOUD GLIDES RIGHT & MORPHS INTO VOXEL ISLAND) -->
+  <!-- SECTION 1: WORLD -->
   <section id="world" class="pad">
     <div class="wrap">
       <div class="col rv">
-        <p class="over">Живой процедурный мир</p>
-        <h2>Без лаунчеров.<br>Зашёл и <span class="hl">строишь.</span></h2>
+        <p class="over">Мир игры</p>
+        <h2>Без лаунчеров<br>и <span class="hl">Java.</span></h2>
         <p class="lead">
-          В KaziMine не нужно устанавливать Java, искать сборки или настраивать порты. Четыре биома — от дубовых рощ до заснеженной тайги и пустынь, глубокие залежи алмазов и мгновенный вход в сетевые комнаты друзей.
+          Качаешь один установщик и сразу заходишь в мир. Четыре биома — равнины, дубовые и берёзовые рощи, снежная тайга и пустыня. Под землёй — пещеры с углём, железом, золотом, алмазами и изумрудами.
         </p>
         <ul class="facts">
-          <li>4 ПРОЦЕДУРНЫХ БИОМА</li>
-          <li>ОНЛАЙН-КОМНАТЫ И LAN</li>
-          <li>БЕЗ JAVA И ТОРМОЗОВ</li>
-          <li>WINDOWS 10 / 11 X64</li>
+          <li>4 БИОМА</li>
+          <li>СЕТЕВЫЕ КОМНАТЫ</li>
+          <li>ВЫЖИВАНИЕ И КРЕАТИВ</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 2: INTERACTIVE RTX FLASHLIGHT / LENS -->
-  <section id="rtx" title="Двигай курсор или нажми, чтобы переключить полный RTX">
-    <img class="layer-classic" src="./assets/compare_classic.jpg" alt="Классический рендер KaziMine">
-    <img class="layer-rtx" src="./assets/compare_rtx.jpg" alt="Встроенный шейдер RTX [F7]">
+  <!-- SECTION 2: RTX -->
+  <section id="rtx">
+    <img class="layer-classic" src="./assets/compare_classic.jpg" alt="" draggable="false">
+    <img class="layer-rtx" src="./assets/compare_rtx.jpg" alt="" draggable="false">
     <div class="vignette"></div>
-    <div class="hint" id="rtxHint">НАВЕДИ СВЕТ · КЛИКНИ ДЛЯ ПОЛНОГО RTX [F7]</div>
+    <div class="hint" id="rtxHint">F7 — ШЕЙДЕРЫ</div>
     <div class="tx">
       <div class="wrap rv">
-        <p class="over">Встроенный графический шейдер</p>
-        <h2>Один клик по <span class="hl">[F7].</span></h2>
+        <p class="over">Графика</p>
+        <h2>Шейдеры по <span class="hl">F7.</span></h2>
         <p class="lead">
-          Поводи курсором по экрану: объёмные кучевые облака, солнечные лучи с реальным перекрытием за горами и крышами, бликующая вода и мягкие тени работают прямо из коробки.
+          Объёмные облака, солнечные лучи сквозь кроны деревьев, блики на воде и мягкие тени включаются прямо на ходу одной клавишей.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 3: STICKY 3-STAGE 3D POINT CLOUD MORPH (SKELETON -> ZOMBIE -> ISLAND/MYSTERY) -->
+  <!-- SECTION 3: STICKY MOBS -->
   <section id="mobs">
     <div class="pin">
       <div class="wrap">
         <div class="stack">
           <article class="m on">
-            <p class="over">В чащах и пещерах</p>
-            <h2>Скелет-лучник</h2>
+            <p class="over">В лесу и пещерах</p>
+            <h2>Скелет</h2>
             <p class="lead">
-              В обновлении 0.1 beta скелеты стреляют полноценными объёмными 3D-стрелами с кремнёвым наконечником и оперением — они летят по баллистической дуге и со звоном втыкаются в блоки.
+              Держит дистанцию и стреляет объёмными стрелами. Промахнётся — стрела со звоном воткнётся в дерево или стену у тебя за спиной.
             </p>
           </article>
 
           <article class="m">
-            <p class="over">После захода солнца</p>
-            <h2>Ночной Зомби</h2>
+            <p class="over">После заката</p>
+            <h2>Зомби</h2>
             <p class="lead">
-              Когда солнце садится за еловый лес, они идут на свет твоего дома. После жаркой обороны следы крови на блоках и снегу можно начисто оттереть новым крафтовым предметом — «Тряпкой».
+              Ночью идут на свет твоего дома. После драки на траве, досках и снегу остаётся кровь — её можно оттереть тряпкой.
             </p>
           </article>
 
           <article class="m">
-            <p class="over">Секретный тумблер в меню мира</p>
+            <p class="over">Настройки мира</p>
             <h2>Режим «???»</h2>
             <p class="lead">
-              Рискнёшь включить загадочный режим перед созданием мира? Плотность тумана сгущается, в тишине слышен шёпот, а среди берёз за тобой наблюдает безмолвный силуэт.
+              Отдельный переключатель при создании мира. Туман становится гуще, в лесу слышны чужие шаги, а среди деревьев появляется тот, кого там быть не должно.
             </p>
           </article>
 
@@ -325,45 +326,44 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:48px 0 38px;font-
     </div>
   </section>
 
-  <!-- SECTION 4: THREE WAYS TO PLAY (CROP MARKS + 3D PERSPECTIVE CARDS) -->
+  <!-- SECTION 4: MODES -->
   <section id="modes" class="pad">
     <div class="wrap">
       <div class="sechead rv">
-        <p class="over">Три режима и полная свобода</p>
-        <h2>Выбирай, как играть сегодня.</h2>
-        <p>В одиночку до рассвета, с друзьями в комнате или в безграничном Креативе.</p>
+        <p class="over">Режимы</p>
+        <h2>Три способа играть.</h2>
       </div>
 
       <div class="cards">
         <div class="crop rv">
           <article class="card g">
-            <div class="pic"><img src="./assets/screenshots/01_survival.jpg" alt="Режим Выживание"></div>
+            <div class="pic"><img src="./assets/screenshots/01_survival.jpg" alt="" draggable="false"></div>
             <div class="bd">
               <span class="tag">ВЫЖИВАНИЕ</span>
-              <h3>Добывай и куй броню</h3>
-              <p>Руби лес, спускайся за алмазами и изумрудами, переплавляй руду в каменной печи, жарь стейки на углях и укладывайся спать на кровать до наступления ночи.</p>
+              <h3>Добывай и строй</h3>
+              <p>Руби деревья, плавь руду в печи, жарь мясо на углях и крафти алмазное снаряжение. Вечером можно лечь в кровать и пропустить ночь.</p>
             </div>
           </article>
         </div>
 
         <div class="crop rv">
           <article class="card c">
-            <div class="pic"><img src="./assets/screenshots/04_menu.jpg" alt="Сетевые комнаты KaziMine"></div>
+            <div class="pic"><img src="./assets/screenshots/04_menu.jpg" alt="" draggable="false"></div>
             <div class="bd">
-              <span class="tag">МУЛЬТИПЛЕЕР</span>
-              <h3>Комнаты для друзей</h3>
-              <p>Впиши свой ник прямо в обновлённом главном меню, открой мир для сети во вкладке «Комнаты» и выживай в кооперативе с полной синхронизацией построек и боя.</p>
+              <span class="tag">КООПЕРАТИВ</span>
+              <h3>Игра по сети</h3>
+              <p>Впиши ник в главном меню, открой комнату и позови друзей. Постройки, лут, мобы и чат синхронизируются у всех игроков.</p>
             </div>
           </article>
         </div>
 
         <div class="crop rv">
           <article class="card y">
-            <div class="pic"><img src="./assets/screenshots/03_rtx_sunset.jpg" alt="Золотой закат RTX"></div>
+            <div class="pic"><img src="./assets/screenshots/03_rtx_sunset.jpg" alt="" draggable="false"></div>
             <div class="bd">
-              <span class="tag">АТМОСФЕРА</span>
-              <h3>Закаты и снежная тайга</h3>
-              <p>Динамическая смена суток раскрашивает небо от свежего рассвета до багровых сумерек над замёрзшими реками и заснеженными вершинами.</p>
+              <span class="tag">ТВОРЧЕСТВО</span>
+              <h3>Полёт и любые блоки</h3>
+              <p>Бесконечные ресурсы, полёт по двойному пробелу, динамит и команды времени и телепортации в чате.</p>
             </div>
           </article>
         </div>
@@ -371,58 +371,58 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:48px 0 38px;font-
     </div>
   </section>
 
-  <!-- SECTION 5: ARCHITECTURAL GRID + INTERACTIVE WORKBENCH -->
+  <!-- SECTION 5: MECHANICS & CRAFT -->
   <section id="craft" class="pad">
     <div class="wrap">
       <div class="sechead rv">
-        <p class="over">Детали обновления 0.1 beta</p>
-        <h2>Продумано до каждого пикселя.</h2>
+        <p class="over">Механики</p>
+        <h2>Что ещё есть в игре.</h2>
       </div>
 
       <div class="fe rv">
         <div>
-          <img class="ico pixel-img" src="./assets/icons/rag.png" alt="">
-          <b>Новый предмет «Тряпка»</b>
-          <p>Крафтится из шерсти, травы или листвы и позволяет оттирать следы сражений с любых блоков и снега.</p>
+          <img class="ico pixel-img" src="./assets/icons/rag.png" alt="" draggable="false">
+          <b>Тряпка</b>
+          <p>Крафтится из шерсти, травы или листвы. Смывает следы крови с блоков и снега.</p>
         </div>
         <div>
-          <img class="ico pixel-img" src="./assets/icons/diamond_sword.png" alt="">
-          <b>Плавная анимация шага</b>
-          <p>Двусоставные сгибающиеся колени и локти у игроков и животных с естественным, размеренным темпом бега.</p>
+          <img class="ico pixel-img" src="./assets/icons/diamond_sword.png" alt="" draggable="false">
+          <b>Стрелы в блоках</b>
+          <p>Выпущенные стрелы летят по дуге, втыкаются в стены и дрожат от удара.</p>
         </div>
         <div>
-          <img class="ico pixel-img" src="./assets/icons/torch.png" alt="">
-          <b>Живое освещение и звук</b>
-          <p>Тёплый свет факелов и печей, шаги по разным материалам, треск огня и атмосферное эхо в пещерах.</p>
+          <img class="ico pixel-img" src="./assets/icons/furnace_front.png" alt="" draggable="false">
+          <b>Печь и готовка</b>
+          <p>Железная и золотая руда переплавляется в слитки, а сырое мясо жарится на угле или досках.</p>
         </div>
         <div>
-          <img class="ico pixel-img" src="./assets/icons/red_bed.png" alt="">
-          <b>Сон в кооперативе</b>
-          <p>Ложись на кровать вечером, пропускай опасную ночь до солнечного утра и закрепляй точку возрождения.</p>
+          <img class="ico pixel-img" src="./assets/icons/red_bed.png" alt="" draggable="false">
+          <b>Кровать и спавн</b>
+          <p>Сон перематывает ночь до утра и сохраняет точку возрождения.</p>
         </div>
         <div>
-          <img class="ico pixel-img" src="./assets/icons/diamond_pickaxe.png" alt="">
-          <b>Удобные команды чата</b>
-          <p>Нажми [T] или [/] для быстрого доступа к /nick, /gamemode, /tp, /time set, /give и списку команд /help.</p>
+          <img class="ico pixel-img" src="./assets/icons/diamond_pickaxe.png" alt="" draggable="false">
+          <b>Чат и команды</b>
+          <p>Клавиша T открывает чат: /nick, /gamemode, /tp, /time set, /give и /help.</p>
         </div>
         <div>
-          <img class="ico pixel-img" src="./assets/icons/crafting_front.png" alt="">
-          <b>Установщик Inno Setup</b>
-          <p>Компактный установщик 37 МБ автоматически создаёт ярлыки на Рабочем столе и в меню «Пуск».</p>
+          <img class="ico pixel-img" src="./assets/icons/torch.png" alt="" draggable="false">
+          <b>Свет и звук</b>
+          <p>Тёплый свет факелов и печей, шаги по разным блокам, треск огня и эхо под землёй.</p>
         </div>
       </div>
 
       <div class="wb-strip rv">
         <div>
-          <p class="over">Шпаргалка крафта</p>
-          <h3 style="margin:8px 0 10px">Проверь рецепты на верстаке</h3>
-          <p style="color:var(--muted);font-size:15px" id="wbDesc">Из 1 блока белой шерсти получается сразу 3 тряпки — нажми ПКМ или ЛКМ тряпкой по блокам со следами боя, чтобы начисто их оттереть.</p>
+          <p class="over">Крафт 3×3</p>
+          <h3 style="margin:8px 0 10px">Верстак</h3>
+          <p style="color:var(--muted);font-size:15px" id="wbDesc">1 белая шерсть → 3 тряпки.</p>
           <div class="wb-pills">
-            <button class="wb-pill on" data-r="rag1"><img src="./assets/icons/rag.png" class="pixel-img" alt="">Тряпка ×3</button>
-            <button class="wb-pill" data-r="rag2"><img src="./assets/icons/short_grass.png" class="pixel-img" alt="">Тряпка (из травы)</button>
-            <button class="wb-pill" data-r="pick"><img src="./assets/icons/diamond_pickaxe.png" class="pixel-img" alt="">Алмазная кирка</button>
-            <button class="wb-pill" data-r="sword"><img src="./assets/icons/diamond_sword.png" class="pixel-img" alt="">Алмазный меч</button>
-            <button class="wb-pill" data-r="bed"><img src="./assets/icons/red_bed.png" class="pixel-img" alt="">Кровать</button>
+            <button class="wb-pill on" data-r="rag1"><img src="./assets/icons/rag.png" class="pixel-img" alt="" draggable="false">Тряпка (шерсть)</button>
+            <button class="wb-pill" data-r="rag2"><img src="./assets/icons/short_grass.png" class="pixel-img" alt="" draggable="false">Тряпка (трава)</button>
+            <button class="wb-pill" data-r="pick"><img src="./assets/icons/diamond_pickaxe.png" class="pixel-img" alt="" draggable="false">Кирка</button>
+            <button class="wb-pill" data-r="sword"><img src="./assets/icons/diamond_sword.png" class="pixel-img" alt="" draggable="false">Меч</button>
+            <button class="wb-pill" data-r="bed"><img src="./assets/icons/red_bed.png" class="pixel-img" alt="" draggable="false">Кровать</button>
           </div>
         </div>
         <div class="wb-gui">
@@ -436,14 +436,13 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:48px 0 38px;font-
 
   <!-- FINALE CTA -->
   <section id="cta">
-    <p class="over">KaziMine 0.1 beta уже доступна</p>
-    <h2>Увидимся в игре.</h2>
-    <p class="lead">Скачай установщик для Windows, выбери свой ник в главном меню и создавай свой мир вместе с друзьями.</p>
+    <p class="over">KaziMine 0.1 beta</p>
+    <h2>Заходи в мир.</h2>
     <div class="cta-row">
-      <a class="btn" data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.1-beta/KaziMine_Setup.exe" download="KaziMine_Setup.exe">
-        <span>⬇ Скачать KaziMine_Setup.exe (37 МБ)</span>
+      <a class="btn" data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.1-beta/KaziMine_Setup.exe" download="KaziMine_Setup.exe" draggable="false">
+        <span>Скачать KaziMine_Setup.exe</span>
       </a>
-      <a class="lnk" href="https://www.twitch.tv/kazibban" target="_blank" rel="noopener">Смотреть на Twitch ›</a>
+      <a class="lnk" href="https://www.twitch.tv/kazibban" target="_blank" rel="noopener" draggable="false">Twitch ›</a>
     </div>
   </section>
 </main>
@@ -453,22 +452,22 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:48px 0 38px;font-
     <div class="fcols">
       <div>
         <b>KaziMine 0.1 beta</b>
-        <span>Разработка и дизайн: f0fxload</span>
-        <span>Платформа: Windows 10 / 11 (64-bit, OpenGL 3.3+)</span>
+        <span>Автор: f0fxload</span>
+        <span>Windows 10 / 11 (x64)</span>
       </div>
       <div>
-        <b>Быстрые клавиши</b>
-        <span>[F7] — Шейдер RTX · [F5] — Камера 3-го лица</span>
-        <span>[E] — Инвентарь · [T] — Чат и команды</span>
+        <b>Управление</b>
+        <span>F7 — Шейдеры · F5 — Вид от 3-го лица</span>
+        <span>E — Инвентарь · T — Чат</span>
       </div>
       <div>
         <b>Ссылки</b>
-        <a data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.1-beta/KaziMine_Setup.exe" download="KaziMine_Setup.exe">Скачать установщик (v0.1 beta)</a>
-        <a href="https://www.twitch.tv/kazibban" target="_blank" rel="noopener">Twitch: twitch.tv/kazibban</a>
+        <a data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.1-beta/KaziMine_Setup.exe" download="KaziMine_Setup.exe" draggable="false">Скачать установщик</a>
+        <a href="https://www.twitch.tv/kazibban" target="_blank" rel="noopener" draggable="false">Twitch</a>
       </div>
     </div>
     <div class="legal">
-      KaziMine 0.1 beta — авторский инди-проект от f0fxload. Не является официальным продуктом Mojang или Microsoft.
+      KaziMine — инди-проект от f0fxload. Не связан с Mojang и Microsoft.
     </div>
   </div>
 </footer>
@@ -482,7 +481,10 @@ footer{background:#0b0d11;border-top:1px solid #1b1f27;padding:48px 0 38px;font-
 (function(){
 'use strict';
 
-/* Optional override when hosted on GitHub Pages pointing to GitHub Releases asset */
+/* Hard-block selection & image dragging */
+document.addEventListener('selectstart', function(e){ e.preventDefault(); });
+document.addEventListener('dragstart', function(e){ e.preventDefault(); });
+
 var INSTALLER_URL = 'https://github.com/f0fxload/kazimine/releases/download/v0.1-beta/KaziMine_Setup.exe';
 if (window.KAZIMINE_DL_URL) INSTALLER_URL = window.KAZIMINE_DL_URL;
 Array.prototype.forEach.call(document.querySelectorAll('[data-dl]'), function(a){ a.href = INSTALLER_URL; });
@@ -501,7 +503,6 @@ var root = document.documentElement;
 var touch = matchMedia('(hover:none)').matches;
 var dpr = Math.min(window.devicePixelRatio || 1, 2);
 
-/* Scroll reveal */
 if ('IntersectionObserver' in window) {
   var rio = new IntersectionObserver(function(es){
     es.forEach(function(e){ if (e.isIntersecting) { e.target.classList.add('in'); rio.unobserve(e.target); } });
@@ -509,7 +510,7 @@ if ('IntersectionObserver' in window) {
   qsa('.rv').forEach(function(el){ rio.observe(el); });
 } else qsa('.rv').forEach(function(el){ el.classList.add('in'); });
 
-/* Interactive RTX Flashlight & Full Toggle */
+/* RTX Lens */
 (function(){
   var rtxSec = qs('#rtx'), hint = qs('#rtxHint');
   rtxSec.addEventListener('pointermove', function(e){
@@ -519,11 +520,11 @@ if ('IntersectionObserver' in window) {
   });
   rtxSec.addEventListener('click', function(){
     var full = rtxSec.classList.toggle('full-rtx');
-    hint.textContent = full ? 'ПОЛНЫЙ RTX ВКЛЮЧЁН · КЛИКНИ ДЛЯ ФОНАРИКА' : 'НАВЕДИ СВЕТ · КЛИКНИ ДЛЯ ПОЛНОГО RTX [F7]';
+    hint.textContent = full ? 'F7 — ВКЛ' : 'F7 — ШЕЙДЕРЫ';
   });
 })();
 
-/* 3D Perspective Tilt on Cards */
+/* 3D Card Tilt */
 if (!touch) qsa('.card').forEach(function(c){
   c.addEventListener('pointermove', function(e){
     var r = c.getBoundingClientRect(), a = (e.clientX - r.left) / r.width - .5, b = (e.clientY - r.top) / r.height - .5;
@@ -532,20 +533,20 @@ if (!touch) qsa('.card').forEach(function(c){
   c.addEventListener('pointerleave', function(){ c.style.transform = ''; });
 });
 
-/* Interactive Workbench */
+/* Workbench */
 (function(){
   var REC = {
-    rag1: { g: [0,0,0, 0,'white_wool.png',0, 0,0,0], o: 'rag.png', c: 3, d: 'Из 1 блока белой шерсти получается сразу 3 тряпки — нажми ПКМ или ЛКМ тряпкой по блокам со следами боя, чтобы начисто их оттереть.' },
-    rag2: { g: [0,0,0, 'short_grass.png','short_grass.png',0, 0,0,0], o: 'rag.png', c: 1, d: 'В полевых условиях тряпку легко сплести прямо в инвентаре 2×2 из двух пучков травы или двух любых блоков листвы.' },
-    pick: { g: ['diamond.png','diamond.png','diamond.png', 0,'stick.png',0, 0,'stick.png',0], o: 'diamond_pickaxe.png', c: 1, d: 'Алмазная кирка мгновенно раскалывает камень и руды, добывает обсидиан и служит максимально долго.' },
-    sword: { g: [0,'diamond.png',0, 0,'diamond.png',0, 0,'stick.png',0], o: 'diamond_sword.png', c: 1, d: 'Верное оружие против ночных зомби и скелетов-лучников. Удар в падении наносит сокрушительный критический урон!' },
-    bed: { g: [0,0,0, 'red_wool.png','red_wool.png','red_wool.png', 'oak_planks.png','oak_planks.png','oak_planks.png'], o: 'red_bed.png', c: 1, d: 'Позволяет лечь спать вечером, пропустить ночь до рассвета и сохранить точку возрождения.' }
+    rag1: { g: [0,0,0, 0,'white_wool.png',0, 0,0,0], o: 'rag.png', c: 3, d: '1 белая шерсть → 3 тряпки.' },
+    rag2: { g: [0,0,0, 'short_grass.png','short_grass.png',0, 0,0,0], o: 'rag.png', c: 1, d: '2 пучка травы или листвы → 1 тряпка.' },
+    pick: { g: ['diamond.png','diamond.png','diamond.png', 0,'stick.png',0, 0,'stick.png',0], o: 'diamond_pickaxe.png', c: 1, d: '3 алмаза и 2 палки. Добывает руды и обсидиан.' },
+    sword: { g: [0,'diamond.png',0, 0,'diamond.png',0, 0,'stick.png',0], o: 'diamond_sword.png', c: 1, d: '2 алмаза и 1 палка. Высокий урон в ближнем бою.' },
+    bed: { g: [0,0,0, 'red_wool.png','red_wool.png','red_wool.png', 'oak_planks.png','oak_planks.png','oak_planks.png'], o: 'red_bed.png', c: 1, d: '3 шерсти и 3 блока досок. Пропуск ночи и точка спавна.' }
   };
   var gEl = qs('#wbGrid'), oEl = qs('#wbOut'), dEl = qs('#wbDesc');
   function show(k){
     var r = REC[k];
-    gEl.innerHTML = r.g.map(function(ic){ return '<div class="wb-slot">' + (ic ? '<img src="./assets/icons/' + ic + '" class="pixel-img" alt="">' : '') + '</div>'; }).join('');
-    oEl.innerHTML = '<img src="./assets/icons/' + r.o + '" class="pixel-img" alt="">' + (r.c > 1 ? '<span class="wb-cnt">' + r.c + '</span>' : '');
+    gEl.innerHTML = r.g.map(function(ic){ return '<div class="wb-slot">' + (ic ? '<img src="./assets/icons/' + ic + '" class="pixel-img" alt="" draggable="false">' : '') + '</div>'; }).join('');
+    oEl.innerHTML = '<img src="./assets/icons/' + r.o + '" class="pixel-img" alt="" draggable="false">' + (r.c > 1 ? '<span class="wb-cnt">' + r.c + '</span>' : '');
     dEl.textContent = r.d;
   }
   qsa('.wb-pill').forEach(function(b){
@@ -558,7 +559,6 @@ if (!touch) qsa('.card').forEach(function(c){
   show('rag1');
 })();
 
-/* Unpack 30,000-point 3D models */
 function unpack(id){
   var el = document.getElementById(id), s = atob(el.textContent.trim()), n = s.length, b = new Uint8Array(n);
   for (var i = 0; i < n; i++) b[i] = s.charCodeAt(i);
@@ -575,7 +575,6 @@ function unpack(id){
   return { pos: pos, col: col, count: count };
 }
 
-/* Universal RGBA8-encoded Spring-Sheet Fluid + WebGL2 Point-Cloud Shader (works on 100% of GPUs!) */
 var VS = '#version 300 es\nprecision highp float;\n' +
 'layout(location=0)in vec3 aA;layout(location=1)in vec3 aB;layout(location=2)in vec3 aCA;layout(location=3)in vec3 aCB;layout(location=4)in vec4 aS;\n' +
 'uniform float uT,uMix,uBall,uDust,uAspect,uScale,uGrid,uAlpha,uClickT,uBoost,uGlow,uFlowK;uniform vec2 uOff,uRot,uClick,uRes;uniform highp sampler2D uFlow;\n' +
@@ -641,10 +640,7 @@ try {
   }
 } catch (e) { cloud = null; }
 
-/* 2D Canvas Fallback if WebGL2 unavailable */
-if (!cloud) {
-  fallback2D = cv.getContext('2d');
-}
+if (!cloud) fallback2D = cv.getContext('2d');
 
 var W = innerWidth, H = innerHeight, aspect = W / H;
 function sizeCloud(){
@@ -666,7 +662,6 @@ function measure(){
   P.cta = top(qs('#cta')); P.ctaH = qs('#cta').offsetHeight;
 }
 
-/* Stations: [scrollY, offX, offY, scale, dust, alpha] */
 function stations(){
   var v = H, wide = aspect > 1.05, s = wide ? 1 : clamp(aspect * 1.05, .55, 1);
   var heroS = wide ? .92 : .85 * clamp(aspect * 1.25, .65, 1), heroY = wide ? .08 : .14;
@@ -698,7 +693,6 @@ function sample(y){
   return ST[ST.length - 1].slice(1);
 }
 
-/* Models: 0=steve, 1=island, 2=skeleton, 3=zombie */
 var trackT = 0;
 function modelsAt(y){
   trackT = clamp((y - P.mobs) / Math.max(1, P.mobsH - H), 0, 1);
@@ -715,7 +709,6 @@ function modelsAt(y){
   return [3, 1, 1];
 }
 
-/* Cursor Spring-Sheet Fluid Field (RGBA8 texture — 100% universal WebGL2 support!) */
 var sheet = (function(){
   if (!cloud) return null;
   var gl = cloud.gl, tex = gl.createTexture();
@@ -814,29 +807,27 @@ addEventListener('pointerdown', function(e){
   click.x = e.clientX / W * 2 - 1; click.y = 1 - e.clientY / H * 2; click.t = now;
 }, { passive: true });
 
-/* Opening Boot Animation */
 var ball = 1, intro = qs('#intro'), started = false, flash = qs('#flash');
 var barEl = qs('#introBar'), stEl = qs('#introSt'), BLOCKS = 28;
 for (var bi = 0; bi < BLOCKS; bi++) barEl.appendChild(document.createElement('i'));
 var quick = false; try { quick = !!sessionStorage.getItem('km-seen'); sessionStorage.setItem('km-seen', '1'); } catch (e) {}
-var introDur = quick ? .45 : 1.55, burstAt = null;
+var introDur = quick ? .4 : 1.35, burstAt = null;
 function setIntro(t){
   var k = clamp(t / introDur, 0, 1), blocks = Math.floor(k * BLOCKS), ch = barEl.children;
   for (var i = 0; i < BLOCKS; i++) ch[i].className = i < blocks ? 'on' : '';
-  stEl.textContent = k < .32 ? 'ПРОВЕРКА ФАЙЛОВ ИГРЫ...' : k < .62 ? 'ГЕНЕРАЦИЯ ВОКСЕЛЕЙ...' : 'ЗАГРУЗКА ' + Math.round(k * 100) + '%';
+  stEl.textContent = 'ЗАГРУЗКА ' + Math.round(k * 100) + '%';
 }
 function burst(){
   if (burstAt !== null) return;
   burstAt = now;
   intro.style.opacity = 0;
   if (flash.animate) flash.animate([{ opacity: .82 }, { opacity: 0 }], { duration: 1000, easing: 'cubic-bezier(.1,.7,.2,1)' });
-  setTimeout(function(){ root.classList.remove('pre'); }, 340);
-  setTimeout(function(){ intro.style.display = 'none'; }, 750);
+  setTimeout(function(){ root.classList.remove('pre'); }, 320);
+  setTimeout(function(){ intro.style.display = 'none'; }, 700);
 }
 addEventListener('pointerdown', function(){ if (ball > 0) burst(); }, { passive: true });
 addEventListener('keydown', function(){ if (ball > 0) burst(); });
 
-/* Nav Active Spy */
 var navLinks = qsa('#nav .lk[href^="#"]'), navSecs = navLinks.map(function(a){ return qs(a.getAttribute('href')); });
 function spy(y){
   var mid = y + H * .42, on = -1;
