@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KaziMine 0.3 — Деревни, Вода и Лава · by f0fxload</title>
-<meta name="description" content="KaziMine 0.3 — масштабное обновление воксельной песочницы от f0fxload. Деревни, жители, големы, живая вода и лава, левая рука [F], лук, кооператив и шейдеры по F7.">
+<title>KaziMine 0.3 · by f0fxload</title>
+<meta name="description" content="KaziMine 0.3 — воксельная песочница от f0fxload. Сохранение миров, коты, деревни, жители, големы, вода и лава, левая рука [F], лук, кооператив и шейдеры по F7.">
 <meta name="theme-color" content="#07090d">
 <meta property="og:type" content="website">
-<meta property="og:title" content="KaziMine 0.3 — Деревни и Стихии">
+<meta property="og:title" content="KaziMine 0.3 · by f0fxload">
 <meta property="og:description" content="Деревни с жителями и големами, динамическая вода и лава, левая рука [F], лук со стрелами, кооператив и шейдеры по F7.">
 <meta property="og:image" content="./assets/screenshots/05_village_03.jpg">
 <link rel="icon" type="image/png" href="./assets/favicon.png">
@@ -309,8 +309,6 @@ footer{position:relative;background:#090b10;border-top:1px solid #1b202a;padding
   <header class="hero">
     <div class="ver-pill">
       <span>ОБНОВЛЕНИЕ <b>0.3</b></span>
-      <span>·</span>
-      <span>ДЕРЕВНИ, ВОДА И ЛАВА</span>
     </div>
     <div class="logo-wrap">
       <img src="./assets/kazimine_logo.png" alt="KAZIMINE" class="pixel-img" draggable="false">
@@ -445,6 +443,7 @@ footer{position:relative;background:#090b10;border-top:1px solid #1b202a;padding
             <div class="bento-chips">
               <span class="bento-chip"><img src="./assets/icons/villager_spawn_egg.png" class="pixel-img" alt="">Жители</span>
               <span class="bento-chip"><img src="./assets/icons/golem_spawn_egg.png" class="pixel-img" alt="">Железный голем</span>
+              <span class="bento-chip"><img src="./assets/icons/cat_spawn_egg.png" class="pixel-img" alt="">Коты</span>
               <span class="bento-chip"><img src="./assets/icons/bread.png" class="pixel-img" alt="">Хлеб и фермы</span>
               <span class="bento-chip"><img src="./assets/icons/cola.png" class="pixel-img" alt="">Кола</span>
             </div>
@@ -757,26 +756,38 @@ var spring = function(s, to, time, dt){
     }
   }
 
-  function handleMessage(topic, payloadStr){
+  function handleMessage(topic, payloadStr, isRetained){
+    if (topic.indexOf('kazimine/f0fxload/v4/card/') === 0 && (!payloadStr || payloadStr.length === 0)) {
+      var goneCode = String(topic.split('/').pop() || '');
+      if (goneCode && rooms[goneCode]) { delete rooms[goneCode]; renderOnline(); }
+      return;
+    }
+    // Never count stale broker-retained packets from closed/crashed sessions!
+    // Live clients emit non-retained heartbeats every 2-6.5s.
+    if (isRetained) return;
     var data;
     try { data = JSON.parse(payloadStr); } catch (e) { return; }
     if (!data || typeof data !== 'object') return;
+    var nowSec = Math.floor(Date.now() / 1000);
+    if (data.utc && Math.abs(nowSec - Number(data.utc)) > 45) return;
     if (topic.indexOf('kazimine/f0fxload/v4/presence/') === 0) {
       var pid = String(data.id || topic.split('/').pop() || '');
       if (!pid) return;
       if (data.bye) {
         delete peers[pid];
       } else {
-        peers[pid] = { name: String(data.name || '').slice(0, 20), mode: String(data.mode || 'world'), seen: Date.now() };
+        peers[pid] = { name: String(data.nick || data.name || '').slice(0, 20), mode: String(data.mode || 'world'), seen: Date.now() };
       }
       renderOnline();
-    } else if (topic.indexOf('kazimine/f0fxload/v4/card/') === 0) {
-      var rcode = String(data.code || topic.split('/').pop() || '');
+    } else if (topic.indexOf('kazimine/f0fxload/v4/card/') === 0 || topic === 'kazimine/f0fxload/v4/lobbies') {
+      var rcode = String(data.room_id || data.code || (topic.indexOf('/card/') !== -1 ? topic.split('/').pop() : '') || '');
       if (!rcode) return;
-      if (data.closed) {
+      if (data.closed || data.t === 'lobby_close') {
         delete rooms[rcode];
       } else {
-        rooms[rcode] = { host: String(data.host || '').slice(0, 20), cur: parseInt(data.cur, 10) || 1, seen: Date.now() };
+        var hostNick = String(data.host_nick || data.host || '').slice(0, 20);
+        var curCnt = parseInt(data.players || data.cur, 10) || 1;
+        rooms[rcode] = { host: hostNick, cur: curCnt, seen: Date.now() };
       }
       renderOnline();
     }
@@ -811,7 +822,8 @@ var spring = function(s, to, time, dt){
             if (!markedUp) { markedUp = true; connectedBrokers++; renderOnline(); }
             try {
               ws.send(makeSub(1, 'kazimine/f0fxload/v4/presence/+'));
-              ws.send(makeSub(2, 'kazimine/f0fxload/v4/card/+'));
+              ws.send(makeSub(2, 'kazimine/f0fxload/v4/lobbies'));
+              ws.send(makeSub(3, 'kazimine/f0fxload/v4/card/+'));
             } catch (e) {}
             if (!pingTimer) {
               pingTimer = setInterval(function(){
@@ -819,6 +831,7 @@ var spring = function(s, to, time, dt){
               }, 25000);
             }
           } else if (ptype === 3 && rem >= 2) { // PUBLISH
+            var isRetained = (hdr & 1) === 1;
             var tlen = (u8[off] << 8) | u8[off + 1];
             var pOff = off + 2 + tlen;
             var qos = (hdr >> 1) & 3;
@@ -826,7 +839,7 @@ var spring = function(s, to, time, dt){
             if (pOff <= end) {
               var topic = new TextDecoder().decode(u8.subarray(off + 2, off + 2 + tlen));
               var body = new TextDecoder().decode(u8.subarray(pOff, end));
-              handleMessage(topic, body);
+              handleMessage(topic, body, isRetained);
             }
           }
           off = end;
