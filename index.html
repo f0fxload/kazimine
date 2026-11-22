@@ -4,13 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>KaziMine 0.3 · by f0fxload</title>
-<meta name="description" content="KaziMine 0.3 — воксельная песочница от f0fxload. Сохранение миров, коты, деревни, жители, големы, вода и лава, левая рука [F], лук, кооператив и шейдеры по F7.">
+<meta name="description" content="KaziMine 0.3 (kazimine) — воксельная песочница от f0fxload. Сохранение миров, волки и коты, деревни, жители, големы, левая рука [F], кооператив и шейдеры F7.">
+<meta name="application-name" content="KaziMine">
 <meta name="theme-color" content="#07090d">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="KaziMine">
 <meta property="og:title" content="KaziMine 0.3 · by f0fxload">
-<meta property="og:description" content="Деревни с жителями и големами, динамическая вода и лава, левая рука [F], лук со стрелами, кооператив и шейдеры по F7.">
+<meta property="og:description" content="Воксельная песочница от f0fxload: сохранение миров, волки и коты, деревни, кооператив и шейдеры по F7.">
 <meta property="og:image" content="./assets/screenshots/05_village_03.jpg">
-<link rel="icon" type="image/png" href="./assets/favicon.png">
+<link rel="icon" href="./favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="48x48" href="./favicon-48x48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="./favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="./favicon-192x192.png">
+<link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+<link rel="manifest" href="./site.webmanifest">
 <script>(function(){try{history.scrollRestoration='manual'}catch(e){}document.documentElement.classList.add('js','pre')})()</script>
 <style>
 @font-face{font-family:"MCPixel";src:url("./assets/minecraft_pixel.ttf") format("truetype");font-display:swap}
@@ -108,11 +115,18 @@ main,#nav,footer{transition:opacity 1s ease}
 #nav .get{margin-left:3px;padding:8px 16px;font-size:13px;font-weight:800;border-radius:999px;color:#041a0e;text-decoration:none;background:linear-gradient(180deg,#74ffc0,var(--acc) 48%,var(--acc2));box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 2px 18px var(--glow);transition:transform .16s,box-shadow .16s}
 #nav .get:hover{transform:translateY(-1px);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 6px 24px rgba(46,229,141,.55)}
 
+.nav-dc{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgba(88,101,242,.16);border:1px solid rgba(88,101,242,.42);color:#e3e7ff;text-decoration:none;margin:0 2px;flex:none;transition:background .18s,border-color .18s,transform .18s,box-shadow .18s}
+.nav-dc:hover{background:#5865F2;border-color:#7c87f7;color:#fff;transform:translateY(-1px);box-shadow:0 4px 16px rgba(88,101,242,.5)}
+.nav-dc svg{width:16px;height:16px;display:block}
+
 /* BUTTONS */
 .btn{display:inline-flex;align-items:center;gap:10px;padding:15px 30px;border-radius:999px;font-weight:800;font-size:16.5px;color:#04190e;text-decoration:none;background:linear-gradient(180deg,#76ffc1,var(--acc) 46%,#13a059);box-shadow:inset 0 1px 0 rgba(255,255,255,.55),0 8px 34px var(--glow);transition:transform .18s,box-shadow .18s}
 .btn:hover{transform:translateY(-2px);box-shadow:inset 0 1px 0 rgba(255,255,255,.65),0 14px 44px rgba(46,229,141,.62)}
 .btn-ghost{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:999px;font-weight:700;font-size:15.5px;color:#eaf0f8;text-decoration:none;background:rgba(18,23,32,.72);border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 8px 24px rgba(0,0,0,.4);backdrop-filter:blur(12px);transition:transform .18s,border-color .18s,background .18s}
 .btn-ghost:hover{transform:translateY(-2px);border-color:rgba(46,229,141,.5);background:rgba(26,34,46,.85)}
+.btn-discord{display:inline-flex;align-items:center;gap:9px;padding:14px 22px;border-radius:999px;font-weight:700;font-size:15.5px;color:#eef1ff;text-decoration:none;background:rgba(88,101,242,.20);border:1px solid rgba(114,127,255,.48);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 8px 24px rgba(0,0,0,.4);backdrop-filter:blur(12px);transition:transform .18s,background .18s,border-color .18s,box-shadow .18s}
+.btn-discord:hover{transform:translateY(-2px);background:#5865F2;border-color:#848ef9;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),0 12px 32px rgba(88,101,242,.52)}
+.btn-discord svg{width:19px;height:19px;flex:none}
 .lnk{display:inline-block;color:#7af5b8;text-decoration:none;font-weight:600;font-size:16px}
 .lnk:hover{text-decoration:underline}
 
@@ -320,6 +334,9 @@ footer{position:relative;background:#090b10;border-top:1px solid #1b202a;padding
     <img src="./assets/icons/music_disc_cat.png" class="pixel-img" alt="">
     <span class="bgm-eq"><i></i><i></i><i></i></span>
   </button>
+  <a class="nav-dc" href="https://discord.gg/5Z5dhwMYQ" target="_blank" rel="noopener" aria-label="Discord-канал KaziMine" title="Discord-канал KaziMine" draggable="false">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.11 13.11 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028ZM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg>
+  </a>
   <a class="get" data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.3/KaziMine_Setup.exe" download="KaziMine_Setup.exe" draggable="false">Скачать 0.3</a>
 </nav>
 
@@ -355,6 +372,10 @@ footer{position:relative;background:#090b10;border-top:1px solid #1b202a;padding
       </a>
       <a class="btn-ghost" data-dl-zip href="https://github.com/f0fxload/kazimine/releases/download/v0.3/KaziMine_v0.3_Win64.zip" download="KaziMine_v0.3_Win64.zip" draggable="false">
         <span>Портативная (.ZIP)</span>
+      </a>
+      <a class="btn-discord" href="https://discord.gg/5Z5dhwMYQ" target="_blank" rel="noopener" draggable="false">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.11 13.11 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028ZM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg>
+        <span>Discord</span>
       </a>
       <a class="lnk" href="https://www.twitch.tv/kazibban" target="_blank" rel="noopener" draggable="false">Twitch ›</a>
     </div>
@@ -575,6 +596,10 @@ footer{position:relative;background:#090b10;border-top:1px solid #1b202a;padding
       <a class="btn-ghost" data-dl-zip href="https://github.com/f0fxload/kazimine/releases/download/v0.3/KaziMine_v0.3_Win64.zip" download="KaziMine_v0.3_Win64.zip" draggable="false">
         <span>Скачать ZIP-архив</span>
       </a>
+      <a class="btn-discord" href="https://discord.gg/5Z5dhwMYQ" target="_blank" rel="noopener" draggable="false">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.79 19.79 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.74 19.74 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.11 13.11 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.3 12.3 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.84 19.84 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028ZM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418Zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418Z"/></svg>
+        <span>Discord-канал</span>
+      </a>
       <a class="lnk" href="https://www.twitch.tv/kazibban" target="_blank" rel="noopener" draggable="false">Twitch ›</a>
     </div>
   </section>
@@ -598,6 +623,7 @@ footer{position:relative;background:#090b10;border-top:1px solid #1b202a;padding
         <b>Ссылки</b>
         <a data-dl href="https://github.com/f0fxload/kazimine/releases/download/v0.3/KaziMine_Setup.exe" download="KaziMine_Setup.exe" draggable="false">Скачать установщик (0.3)</a>
         <a data-dl-zip href="https://github.com/f0fxload/kazimine/releases/download/v0.3/KaziMine_v0.3_Win64.zip" download="KaziMine_v0.3_Win64.zip" draggable="false">Скачать портативный ZIP</a>
+        <a href="https://discord.gg/5Z5dhwMYQ" target="_blank" rel="noopener" draggable="false">Discord — канал игры</a>
         <a href="https://www.twitch.tv/kazibban" target="_blank" rel="noopener" draggable="false">Twitch — kazibban</a>
       </div>
     </div>
